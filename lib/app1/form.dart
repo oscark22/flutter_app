@@ -24,12 +24,60 @@ class FormContainer extends StatefulWidget {
 }
 
 class _FormContainerState extends State<FormContainer> {
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
-          TextFormField(),
+          TextFormField(
+            decoration: InputDecoration(hintText: "Name"),
+            onChanged: (value) {
+              print(value);
+            },
+            validator: (value) {
+              if (value == '' || value == null) {
+                return "Write your name. This field is required.";
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(hintText: "Last Name"),
+            onChanged: (value) {
+              print(value);
+            },
+            validator: (value) {
+              if (value == '' || value == null) {
+                return "Write your last name. This field is required.";
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            decoration: InputDecoration(hintText: "Age"),
+            onChanged: (value) {
+              print(value);
+            },
+            validator: (value) {
+              if (value == '' || value == null) {
+                return "Write your age. This field is required.";
+              }
+              return null;
+            },
+          ),
+          ElevatedButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Processing Data')),
+                );
+              }
+            },
+            child: const Text("Submit"),
+          )
         ],
       ),
     );
